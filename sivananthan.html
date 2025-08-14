@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sivananthan C — Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  :root{
+    --bg:#0b0f17; --card:#101623; --muted:#a7b0c0; --text:#e9eef7;
+    --brand:#7aa8ff; --brand2:#7bffcf;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,sans-serif;scroll-behavior:smooth}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* Navbar */
+  .nav{
+    position:sticky;top:0;z-index:999;
+    backdrop-filter:blur(10px);
+    background:rgba(11,15,23,.85);
+    border-bottom:1px solid #1b2436;
+  }
+  .nav .wrap{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px}
+  .brand{font-weight:800;letter-spacing:.3px}
+  .brand .dot{color:var(--brand2)}
+  .nav a{padding:8px 10px;border-radius:8px}
+  .nav a:hover{background:#0f1626}
+  .nav .links{display:flex;gap:6px;flex-wrap:wrap}
+
+  /* Hero */
+  .container{max-width:1100px;margin:0 auto;padding:22px}
+  .hero{
+    display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;
+    background:linear-gradient(180deg,rgba(122,168,255,.08),rgba(123,255,207,.06));
+    border:1px solid #1b2436;border-radius:22px;padding:28px;
+    box-shadow:0 10px 40px rgba(0,0,0,.25)
+  }
+  .title{font-size:42px;line-height:1.1;font-weight:800;letter-spacing:-.02em;margin:0 0 8px}
+  .subtitle{color:var(--muted);margin:0 0 16px}
+  .buttons{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 14px;border-radius:12px;font-weight:700;border:1px solid #263657;
+    background:linear-gradient(135deg,var(--brand),var(--brand2)); color:#07111f; cursor:pointer;
+    box-shadow:0 6px 24px rgba(122,168,255,.25); transition:transform .15s ease,box-shadow .15s ease
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(122,168,255,.35)}
+  .btn.ghost{background:transparent;color:var(--text)}
+  .contactline{margin-top:10px;color:#b9c3d6;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+  .photo-wrap{display:flex;justify-content:center}
+  .photo{
+    width:170px;height:170px;border-radius:50%;object-fit:cover;
+    border:4px solid var(--brand); box-shadow:0 0 26px rgba(122,168,255,.55)
+  }
+
+  /* Sections */
+  section{margin-top:22px}
+  .section{background:var(--card);border:1px solid #1b2436;border-radius:18px;padding:20px}
+  .section h2{margin:0 0 14px;font-size:22px;text-align:center}
+  .section h2 span{background:linear-gradient(135deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .grid{display:grid;gap:16px}
+  .grid.cols-2{grid-template-columns:1fr 1fr}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .card{background:#0f1626;border:1px solid #1e2a41;border-radius:14px;padding:14px;box-shadow:0 6px 22px rgba(0,0,0,.2)}
+  .muted{color:var(--muted)}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#0f1626;border:1px solid #1e2a41;font-size:12px;color:#cfe2ff;margin:2px}
+  .list{display:grid;gap:12px}
+  .item{display:flex;gap:10px}
+  .bullet{width:8px;height:8px;margin-top:10px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2))}
+
+  /* Projects */
+  .filters{display:flex;gap:8px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+  .filters .btn{padding:6px 10px;font-size:12px}
+  .filters .btn.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#07111f;border-color:transparent}
+  .projects{display:grid;gap:16px;grid-template-columns:repeat(3,1fr)}
+  .project .title-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .tag{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid #2a3858;color:#9fc7ff;background:#0b1322}
+  .project p{margin:8px 0 10px}
+
+  /* Footer */
+  footer{margin:34px 0 20px;text-align:center;color:var(--muted);font-size:14px}
+
+  /* Animations on scroll */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease, transform .6s ease}
+  .reveal.visible{opacity:1;transform:none}
+
+  /* Responsive */
+  @media (max-width:980px){ .projects{grid-template-columns:1fr 1fr} .grid.cols-2{grid-template-columns:1fr} .hero{grid-template-columns:1fr} .title{font-size:34px} }
+  @media (max-width:560px){ .projects{grid-template-columns:1fr} .title{font-size:28px} }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="wrap">
+    <div class="brand">Sivananthan<span class="dot">.</span>C</div>
+    <div class="links">
+      <a href="#about"><i class="fa-regular fa-user"></i> About</a>
+      <a href="#skills"><i class="fa-solid fa-toolbox"></i> Skills</a>
+      <a href="#projects"><i class="fa-regular fa-folder-open"></i> Projects</a>
+      <a href="#experience"><i class="fa-regular fa-clock"></i> Experience</a>
+      <a href="#education"><i class="fa-solid fa-graduation-cap"></i> Education</a>
+      <a href="#contact"><i class="fa-regular fa-envelope"></i> Contact</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <header class="hero reveal">
+    <div>
+      <div class="chip"><i class="fa-solid fa-bolt"></i> Electrical & Electronics Engineer</div>
+      <h1 class="title">Sivananthan C</h1>
+      <p class="subtitle">Embedded Systems • Renewable Energy • Data Projects</p>
+      <div class="buttons">
+        <a class="btn" href="#projects"><i class="fa-regular fa-eye"></i> View Projects</a>
+        <a class="btn" href="#contact"><i class="fa-regular fa-paper-plane"></i> Contact Me</a>
+        <a class="btn ghost" href="https://linkedin.com/in/sivananthan-c" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+        <a class="btn ghost" href="RESUME CORE.pdf" target="_blank" rel="noreferrer"><i class="fa-regular fa-file-pdf"></i> Core Resume</a>
+        <a class="btn ghost" href="RESUME IT.pdf" target="_blank" rel="noreferrer"><i class="fa-regular fa-file-pdf"></i> IT Resume</a>
+      </div>
+      <div class="contactline"><i class="fa-solid fa-location-dot"></i> Coimbatore, Tamil Nadu • <i class="fa-regular fa-envelope"></i> sivananthan970@gmail.com • <i class="fa-solid fa-phone"></i> +91 99944 12467</div>
+    </div>
+    <div class="photo-wrap">
+      <img class="photo" src="sivananthan.png" alt="Portrait of Sivananthan C">
+    </div>
+  </header>
+
+  <!-- ABOUT & SKILLS -->
+  <section id="about" class="section reveal">
+    <h2><span>About Me</span></h2>
+    <p class="muted" style="text-align:center;max-width:860px;margin:0 auto">
+      B.E. in Electrical & Electronics Engineering (CGPA 8.78 up to 6th semester). Adaptable, curious, and committed to continuous learning. Passionate about solving real-world problems across power electronics, IoT, and data-driven applications. Comfortable bridging hardware and software—from embedded firmware and communication protocols to dashboards and analysis.  
+    </p>
+  </section>
+
+  <section id="skills" class="section reveal">
+    <h2><span>Skills</span></h2>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3><i class="fa-solid fa-code"></i> Programming</h3>
+        <div class="chip">C</div>
+        <div class="chip">Embedded C</div>
+        <div class="chip">Data Structures</div>
+        <div class="chip">SQL</div>
+      </div>
+      <div class="card">
+        <h3><i class="fa-solid fa-screwdriver-wrench"></i> Tools</h3>
+        <div class="chip">MATLAB / Simulink</div>
+        <div class="chip">STM32CubeIDE</div>
+        <div class="chip">Arduino IDE</div>
+        <div class="chip">Power BI</div>
+        <div class="chip">PVSyst</div>
+        <div class="chip">VS Code</div>
+        <div class="chip">GitHub</div>
+        <div class="chip">Cisco Packet Tracer</div>
+      </div>
+      <div class="card">
+        <h3><i class="fa-solid fa-diagram-project"></i> Protocols</h3>
+        <div class="chip">SPI</div>
+        <div class="chip">I2C</div>
+        <div class="chip">UART</div>
+        <div class="chip">HTTPS</div>
+        <div class="chip">TCP/IP</div>
+      </div>
+      <div class="card">
+        <h3><i class="fa-solid fa-star"></i> Areas of Interest</h3>
+        <div class="chip">Embedded Systems</div>
+        <div class="chip">Renewable Energy</div>
+        <div class="chip">Networking</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section reveal">
+    <h2><span>Projects</span></h2>
+
+    <div class="filters">
+      <button class="btn ghost active" data-filter="all"><i class="fa-solid fa-layer-group"></i> All</button>
+      <button class="btn ghost" data-filter="core"><i class="fa-solid fa-plug"></i> Core / Embedded</button>
+      <button class="btn ghost" data-filter="it"><i class="fa-solid fa-laptop-code"></i> IT / Software</button>
+    </div>
+
+    <div class="projects" id="project-grid">
+      <!-- Core -->
+      <article class="card project" data-tags="core">
+        <div class="title-row">
+          <h3><i class="fa-solid fa-plug"></i> Battery Thermal Management for EV</h3>
+          <span class="tag">Nov 2024 — May 2025</span>
+        </div>
+        <p class="muted">Designed a thermal management approach with sensors & control logic to regulate EV battery temperature efficiently.</p>
+      </article>
+
+      <article class="card project" data-tags="core">
+        <div class="title-row">
+          <h3><i class="fa-solid fa-plug"></i> Smart Home Energy Meter</h3>
+          <span class="tag">Jul 2024 — Sep 2024</span>
+        </div>
+        <p class="muted">Real-time electricity monitoring with cloud upload to help optimize consumption.</p>
+      </article>
+
+      <!-- IT -->
+      <article class="card project" data-tags="it">
+        <div class="title-row">
+          <h3><i class="fa-solid fa-laptop-code"></i> Cab Booking Application</h3>
+          <span class="tag">May 2025 — Jun 2025</span>
+        </div>
+        <p class="muted">Console-based system with role-based access for Customers, Drivers, and Admin (C, OOP concepts).</p>
+      </article>
+
+      <article class="card project" data-tags="it">
+        <div class="title-row">
+          <h3><i class="fa-solid fa-chart-column"></i> IPL Player & Team Performance Dashboard</h3>
+          <span class="tag">Jul 2024 — Oct 2024</span>
+        </div>
+        <p class="muted">Analyzed IPL data: most runs/wickets, team win rates, venue performance, toss vs win (Power BI).</p>
+      </article>
+
+      <!-- Shared/General (keep once) -->
+      <article class="card project" data-tags="it">
+        <div class="title-row">
+          <h3><i class="fa-solid fa-file-lines"></i> Student Record Management System</h3>
+          <span class="tag">Jan 2023 — Apr 2023</span>
+        </div>
+        <p class="muted">Menu-driven CRUD using C structs, file I/O, functions, and pointers.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE & EDUCATION -->
+  <section id="experience" class="section reveal">
+    <h2><span>Experience</span></h2>
+    <div class="list">
+      <div class="item">
+        <div class="bullet"></div>
+        <div>
+          <h3>PanTechAI Academy — Intern <span class="muted">(Jul 2025 – Present)</span></h3>
+          <p class="muted">ARM-based embedded design, firmware development, and peripheral interfacing on Cortex-M; real-time debugging and communication protocols. </p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="bullet"></div>
+        <div>
+          <h3>NIT Tiruchirappalli — Intern <span class="muted">(Jul 2024 – Aug 2024)</span></h3>
+          <p class="muted">Implemented & studied P&O MPPT algorithm to maximize PV output by adjusting the PV operating point.  </p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="bullet"></div>
+        <div>
+          <h3>Safvolt Switchgears — Intern <span class="muted">(Jan 2024 – Feb 2024)</span></h3>
+          <p class="muted">Exposure to MCCB, ACB, VCB, contactors and relays; applications & control.  </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="section reveal">
+    <h2><span>Education & Certifications</span></h2>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3><i class="fa-solid fa-graduation-cap"></i> Education</h3>
+        <ul class="muted" style="margin:6px 0 0 18px;line-height:1.7">
+          <li>B.E., EEE — KPRIET (2022–Present), CGPA 8.78 (up to 6th sem). </li>
+          <li>Govt HSS, Kalapatti — SSLC 85%, HSC 86%. </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><i class="fa-regular fa-badge-check"></i> Certifications</h3>
+        <ul class="muted" style="margin:6px 0 0 18px;line-height:1.7">
+          <li>NPTEL — Intro to IoT; Fundamentals of AI (Top 5% Topper). </li>
+          <li>Coursera — Arduino Platform & C; Intro to Databases. </li>
+          <li>Maven Silicon — Embedded System Design (Overview); VLSI SoC using Verilog. </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS & MEMBERSHIPS -->
+  <section class="section reveal">
+    <h2><span>Achievements & Memberships</span></h2>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3><i class="fa-regular fa-trophy"></i> Achievements</h3>
+        <ul class="muted" style="margin:6px 0 0 18px;line-height:1.7">
+          <li>Finalist — Techgium (L&T). </li>
+          <li>1st Place — Circuit Debugging (IIIT Kottayam). </li>
+          <li>3rd Place — Paper Presentation. </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><i class="fa-regular fa-id-badge"></i> Professional Memberships</h3>
+        <ul class="muted" style="margin:6px 0 0 18px;line-height:1.7">
+          <li>IEEE Power & Energy Society — Member (Jan 2025 – Dec 2025). </li>
+          <li>IEEE Control Systems Society — Vice Chair (Jan 2024 – Dec 2024). </li>
+          <li>SSEM — Member (Jan 2023 – Apr 2026). </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section reveal">
+    <h2><span>Contact</span></h2>
+    <div class="card" style="text-align:center">
+      <p class="muted" style="max-width:760px;margin:0 auto 10px">
+        Open to internships and entry-level roles in Embedded Systems, Power Electronics, and Data-focused engineering.
+      </p>
+      <div class="buttons" style="justify-content:center">
+        <a class="btn" href="mailto:sivananthan970@gmail.com"><i class="fa-regular fa-envelope"></i> Email</a>
+        <a class="btn ghost" href="https://linkedin.com/in/sivananthan-c" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+        <a class="btn ghost" href="tel:+919994412467"><i class="fa-solid fa-phone"></i> Call</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Sivananthan C · Built with HTML/CSS/JS
+  </footer>
+</div>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const onScroll = () => {
+    const trigger = window.innerHeight * 0.85;
+    reveals.forEach(el => {
+      const top = el.getBoundingClientRect().top;
+      if(top < trigger) el.classList.add('visible');
+    });
+  };
+  window.addEventListener('scroll', onScroll); onScroll();
+
+  // Project filter
+  const buttons = document.querySelectorAll('[data-filter], .filters .btn');
+  const cards = document.querySelectorAll('.project');
+  buttons.forEach(btn => btn.addEventListener('click', () => {
+    const tag = btn.getAttribute('data-filter') || btn.dataset.filter;
+    if(!tag) return;
+    cards.forEach(c => {
+      const show = tag === 'all' || (c.dataset.tags||'').includes(tag);
+      c.style.display = show ? 'block' : 'none';
+    });
+    document.querySelectorAll('.filters .btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }));
+</script>
+</body>
+</html>
